@@ -1,11 +1,11 @@
 <?php
 MLCApplication::InitPackage('MLCAws');
 class MLCSocialUploadBox extends MJaxS3UploadBox{
-
-    public function __construct($objParentControl, $strControlId = null) {
-        parent::__construct($objParentControl, $strControlId);
+    protected $arrData = null;
+    public function __construct($objParentControl, $mixData = null){
+        parent::__construct($objParentControl);
+        $this->arrData = $mixData;
         $this->strS3Path = 'social/' . MLCAuthDriver::IdUser() . '/' . time();
-
 
     }
     public function GetValue() {

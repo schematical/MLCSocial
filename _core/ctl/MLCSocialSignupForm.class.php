@@ -10,6 +10,8 @@ class MLCSocialSignupForm extends MLCForm{
             new MJaxAuthSignupEvent(),
             new MJaxServerControlAction($this, 'pnlSignup_signup')
         );
+        $this->pnlSignup->lnkSignup->Style->Display = 'none';
+
         $arrProfileFieldTypes = MLCSocialDriver::GetProfileFieldTypes();
         foreach ($arrProfileFieldTypes as $strKey => $objProfileFieldType) {
             $this->arrEditProfileField[$objProfileFieldType->Namespace] = new MLCSocialProfileFieldDataEditPanel($this, $objProfileFieldType);
@@ -21,10 +23,11 @@ class MLCSocialSignupForm extends MLCForm{
 
 
     }
+    public function lnkSave_click($strFormId, $strControlId, $strActionParameter){
+        $this->pnlSignup->lnkSignup_click($strFormId, $strControlId, $strActionParameter);
+    }
     public function pnlSignup_signup(){
 
-    }
-    public function lnkSave_click(){
         $arrProfileFieldData = array();
         foreach ( $this->arrEditProfileField as $strNamespace => $pnlEditProfileField) {
             $arrProfileFieldData[$strNamespace] = $pnlEditProfileField->Save();

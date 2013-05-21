@@ -1,11 +1,14 @@
 <?php
 
 class MLCSocialTextBox extends MJaxTextBox{
-
-    public function __construct($objParentControl, $strControlId = null)
+    protected $arrData = null;
+    public function __construct($objParentControl, $mixData = null)
     {
-        parent::__construct($objParentControl, $strControlId);
-
+        parent::__construct($objParentControl);
+        $this->arrData = $mixData;
+        if(array_key_exists('type', $this->arrData)){
+            $this->strTextMode = $this->arrData['type'];
+        }
 
 
     }

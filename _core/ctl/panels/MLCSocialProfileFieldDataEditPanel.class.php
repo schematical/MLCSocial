@@ -24,19 +24,9 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
         }
         if(class_exists($this->objFieldType->CtlType)){
             $strClassName = $this->objFieldType->CtlType;
-            $this->mixCtl = new $strClassName($this);
+            $this->mixCtl = new $strClassName($this, _jd($this->objFieldType->OptData));
             if(!is_null($this->objFieldData)){
                 $this->mixCtl->Text = $this->objFieldData->Data;
-            }
-        }else{
-            die("HIT");
-            switch ($this->objFieldType->CtlType) {
-                case('blah'):
-
-                    break;
-                default:
-
-                    break;
             }
         }
 
@@ -49,14 +39,14 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
             $this->objFieldData->IdUser = MLCAuthDriver::IdUser();
             $this->objFieldData->CreDate = MLCDateTime::Now();
         }
-        $strValue = $this->mixCtl->Text;
+        $strValue = $this->mixCtl->GetValue();
         if(
             ($this->objFieldType->Rank == 1) &&
             (strlen($strValue) == 0)
         ){
             return null;
         }
-        $this->objFieldData->Data = $this->mixCtl->Text;
+        $this->objFieldData->Data = $strValue;
         $this->objFieldData->Save();
         return $this->objFieldData;
     }
