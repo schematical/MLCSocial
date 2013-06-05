@@ -15,6 +15,7 @@ class MLCSocialSignupForm extends MLCForm{
         $arrProfileFieldTypes = MLCSocialDriver::GetProfileFieldTypes();
         foreach ($arrProfileFieldTypes as $strKey => $objProfileFieldType) {
             $this->arrEditProfileField[$objProfileFieldType->Namespace] = new MLCSocialProfileFieldDataEditPanel($this, $objProfileFieldType);
+
         }
         $this->lnkSave = new MJaxLinkButton($this);
         $this->lnkSave->Text = 'Save';
@@ -32,6 +33,7 @@ class MLCSocialSignupForm extends MLCForm{
         foreach ( $this->arrEditProfileField as $strNamespace => $pnlEditProfileField) {
             $arrProfileFieldData[$strNamespace] = $pnlEditProfileField->Save();
         }
+        $this->Alert('Thanks for signing up!');
         return $arrProfileFieldData;
     }
 }

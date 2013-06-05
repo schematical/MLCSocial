@@ -11,7 +11,13 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
     public function __construct($objParentControl, $objFieldType) {
         parent::__construct($objParentControl);
         $this->objFieldType = $objFieldType;
-        $this->strTemplate = __MLC_SOCIAL_CORE_VIEW__ . '/panels/' . get_class($this) . '.tpl.php';
+        $strTplFile = get_class($this);
+        $strFileLoc = __VIEW_ACTIVE_APP_DIR__ . '/www/social/' . $strTplFile . '.tpl.php';
+        if(file_exists($strFileLoc)){
+            $this->strTemplate = $strFileLoc;
+        }else{
+            $this->strTemplate = __MLC_SOCIAL_CORE_VIEW__ . '/panels/' . $strTplFile . '.tpl.php';
+        }
         if (!is_null(MLCAuthDriver::IdUser())) {
             $this->objFieldData = MLCSocialProfileFieldData::Query(
                 sprintf(
