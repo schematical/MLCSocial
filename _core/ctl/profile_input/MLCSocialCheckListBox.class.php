@@ -25,6 +25,10 @@ class MLCSocialCheckListBox extends MJaxPanel{
 
     }
     public function GetValue() {
-        return $this->SelectedValue;
+        foreach($this->arrCheckBoxs as $strKey => $chkBox){
+            if($chkBox->Checked){
+                return $chkBox->ActionParameter;
+            }
+        }
     }
 }
