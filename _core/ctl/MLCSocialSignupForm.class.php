@@ -25,7 +25,8 @@ class MLCSocialSignupForm extends MLCForm{
 
     }
     public function lnkSave_click($strFormId, $strControlId, $strActionParameter){
-        $this->pnlSignup->lnkSignup_click($strFormId, $strControlId, $strActionParameter);
+        //$this->pnlSignup->lnkSignup_click($strFormId, $strControlId, $strActionParameter);
+        $this->pnlSignup_signup();
     }
     public function pnlSignup_signup(){
 

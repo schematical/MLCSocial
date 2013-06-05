@@ -45,6 +45,9 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
             $this->objFieldData->IdUser = MLCAuthDriver::IdUser();
             $this->objFieldData->CreDate = MLCDateTime::Now();
         }
+        if(is_null($this->mixCtl)){
+            _dv($this->objFieldType);
+        }
         $strValue = $this->mixCtl->GetValue();
         if(
             ($this->objFieldType->Rank == 1) &&

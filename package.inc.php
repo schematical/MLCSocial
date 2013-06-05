@@ -31,6 +31,7 @@ MLCApplicationBase::$arrClassFiles['MLCSocialUploadBox'] = __MLC_SOCIAL_CORE_CTL
 MLCApplicationBase::$arrClassFiles['MLCSocialListBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialListBox.class.php';
 MLCApplicationBase::$arrClassFiles['MLCSocialTextBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialTextBox.class.php';
 MLCApplicationBase::$arrClassFiles['MLCSocialTextArea'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialTextArea.class.php';
+MLCApplicationBase::$arrClassFiles['MLCSocialCheckListBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialCheckListBox.class.php';
 
 
 require_once(__MLC_SOCIAL_CORE_MODEL__ . '/_enum.inc.php');
