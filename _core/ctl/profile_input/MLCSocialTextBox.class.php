@@ -13,6 +13,9 @@ class MLCSocialTextBox extends MJaxTextBox{
 
     }
     public function GetValue() {
+        if(strlen($this->strText) == 0){
+            return null;
+        }
         return $this->strText;
     }
 }

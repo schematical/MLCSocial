@@ -38,20 +38,25 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
 
     }
 
-    public function Save(){
+    public function Save($intHackUser = null){
         if(is_null($this->objFieldData)){
             $this->objFieldData = new MLCSocialProfileFieldData();
             $this->objFieldData->IdProfileFieldType = $this->objFieldType->IdProfileFieldType;
-            $this->objFieldData->IdUser = MLCAuthDriver::IdUser();
+            if(!is_null($intHackUser)){
+                $this->objFieldData->IdUser = $intHackUser;
+            }else{
+                $this->objFieldData->IdUser = MLCAuthDriver::IdUser();
+            }
+
             $this->objFieldData->CreDate = MLCDateTime::Now();
         }
         if(is_null($this->mixCtl)){
-            _dv($this->objFieldType);
+            throw new Exception("Field Control cannot be null");
         }
         $strValue = $this->mixCtl->GetValue();
         if(
             ($this->objFieldType->Rank == 1) &&
-            (strlen($strValue) == 0)
+            (is_null($strValue))
         ){
             return null;
         }

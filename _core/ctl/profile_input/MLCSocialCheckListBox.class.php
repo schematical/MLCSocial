@@ -30,5 +30,6 @@ class MLCSocialCheckListBox extends MJaxPanel{
                 return $chkBox->ActionParameter;
             }
         }
+        return null;
     }
 }

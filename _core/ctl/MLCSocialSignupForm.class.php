@@ -31,8 +31,14 @@ class MLCSocialSignupForm extends MLCForm{
     public function pnlSignup_signup(){
 
         $arrProfileFieldData = array();
+        $objUser = MLCAuthDriver::IdUser();
+        if(is_null($objUser)){
+            $intHackUser = time();
+        }else{
+            $intHackUser = MLCAuthDriver::IdUser();
+        }
         foreach ( $this->arrEditProfileField as $strNamespace => $pnlEditProfileField) {
-            $arrProfileFieldData[$strNamespace] = $pnlEditProfileField->Save();
+            $arrProfileFieldData[$strNamespace] = $pnlEditProfileField->Save($intHackUser);
         }
         $this->Alert('Thanks for signing up!');
         return $arrProfileFieldData;
