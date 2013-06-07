@@ -1,3 +1,9 @@
 <h1>MLCSocial Admin</h1>
-<a href='?download=1'>Download</a><br>
-<?php $this->tblProfileData->Render(); ?>
+<ul>
+    <li>
+        <a href='./profile_fields.php'>Profile Fields</a>
+    </li>
+    <li>
+        <a href='./profile_data.php'>User Profile Data</a>
+    </li>
+</ul>

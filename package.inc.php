@@ -32,6 +32,12 @@ MLCApplicationBase::$arrClassFiles['MLCSocialListBox'] = __MLC_SOCIAL_CORE_CTL__
 MLCApplicationBase::$arrClassFiles['MLCSocialTextBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialTextBox.class.php';
 MLCApplicationBase::$arrClassFiles['MLCSocialTextArea'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialTextArea.class.php';
 MLCApplicationBase::$arrClassFiles['MLCSocialCheckListBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialCheckListBox.class.php';
+MLCApplicationBase::$arrClassFiles['MLCSocialRadioListBox'] = __MLC_SOCIAL_CORE_CTL__ . '/profile_input/MLCSocialRadioListBox.class.php';
+
+//ADMIN PANELS
+MLCApplicationBase::$arrClassFiles['MLCSocialAdminProfileFieldDataEditPanel'] = __MLC_SOCIAL_CORE_CTL__ . '/admin/panels/MLCSocialAdminProfileFieldDataEditPanel.class.php';
+MLCApplicationBase::$arrClassFiles['MLCSocialAdminProfileFieldTypeEditPanel'] = __MLC_SOCIAL_CORE_CTL__ . '/admin/panels/MLCSocialAdminProfileFieldTypeEditPanel.class.php';
+
 
 
 require_once(__MLC_SOCIAL_CORE_MODEL__ . '/_enum.inc.php');

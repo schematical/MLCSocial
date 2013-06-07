@@ -15,7 +15,7 @@ class MLCSocialProfileForm extends MLCForm
                 mlc_show_error_page(404);
             }
         }
-        $arrSocialActions = MLCSocialDriver::GetUserSocialActions();
+        $arrSocialActions = MLCSocialDriver::GetUserSocialActions(self::$objUser);
         $this->pnlFeed = new MLCSocialFeedDisplayPanel($this, 'pnlFeed', $arrSocialActions);
 
     }
@@ -30,7 +30,11 @@ class MLCSocialProfileForm extends MLCForm
         if(is_null($this->arrProfileData)){
             $this->InitProfileData();
         }
-        echo $this->arrProfileData[$intKey]->Data;
+        if(array_key_exists($intKey, $this->arrProfileData)){
+            echo $this->arrProfileData[$intKey]->Data;
+        }else{
+            echo "Not filled in yet";
+        }
     }
     public static function SetUser(AuthUser $objUser){
         self::$objUser = $objUser;

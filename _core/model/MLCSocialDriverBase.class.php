@@ -30,8 +30,43 @@ abstract class MLCSocialDriverBase{
         return MLCSocialDriver::GetRelatedSocailActions($objUser);
 
     }
-
+    public static function SetSocialProfileData($mixKey, $mixData, $objUser = null){
+        if (is_null($objUser)) {
+            $objUser = MLCAuthDriver::User();
+        }
+        if(is_numeric($mixKey)){
+            $intIdProfileField = $mixKey;
+        }elseif(is_string($mixKey)){
+            $objProfileType = MLCSocialProfileFieldType::LoadSingleByField('namespace', $mixKey);
+            if(is_null($objProfileType)){
+                throw new Exception("Not a valid MLCSocialProfileFiledType: " . $mixData);
+            }
+            $intIdProfileField = $objProfileType->IdProfileFieldType;
+        }elseif($mixKey instanceof MLCSocialProfileFieldType){
+            $intIdProfileField = $mixData->IdProfileFieldType;
+        }else{
+            throw new Exception("Not a valid MLCSocialProfileFiledType: " . var_dump($mixData));
+        }
+        $objProfileData = MLCSocialProfileFieldData::Query(
+            sprintf(
+                'WHERE idUser = %s AND idProfileFieldType = %s',
+                $objUser->IdUser,
+                $intIdProfileField
+            ),
+            true
+        );
+        if(is_null($objProfileData)){
+            $objProfileData = new MLCSocialProfileFieldData();
+            $objProfileData->IdUser = $objUser->IdUser;
+            $objProfileData->IdProfileFieldType = $intIdProfileField;
+        }
+        $objProfileData->CreDate = MLCDateTime::Now();
+        $objProfileData->Data = $mixData;
+        $objProfileData->Save();
+        return $objProfileData;
+    }
     public static function GetRelatedSocailActions($objEntity){
+
         $arrSocialActions = MLCSocialAction::Query(
             sprintf(
                 'WHERE

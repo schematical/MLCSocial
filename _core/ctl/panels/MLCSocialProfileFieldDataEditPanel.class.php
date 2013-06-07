@@ -34,6 +34,8 @@ class MLCSocialProfileFieldDataEditPanel extends MJaxPanel {
             if(!is_null($this->objFieldData)){
                 $this->mixCtl->Text = $this->objFieldData->Data;
             }
+        }else{
+            throw new Exception("No field type :" . $this->objFieldType->CtlType);
         }
 
     }

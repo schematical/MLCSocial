@@ -3,6 +3,7 @@ class MLCSocialSignupForm extends MLCForm{
     protected $pnlSignup = null;
     protected $arrEditProfileField = array();
     public $lnkSave = null;
+    public $pnlThanks = null;
 
     public function Form_Create(){
         $this->pnlSignup = new MLCShortSignUpPanel($this, 'pnlSignup');
@@ -17,6 +18,16 @@ class MLCSocialSignupForm extends MLCForm{
             $this->arrEditProfileField[$objProfileFieldType->Namespace] = new MLCSocialProfileFieldDataEditPanel($this, $objProfileFieldType);
 
         }
+        $this->pnlThanks = new MJaxPanel($this);
+        $strTplFile = '_MLCSocialSignupThanksPanel';
+        $strFileLoc = __VIEW_ACTIVE_APP_DIR__ . '/www/social/' . $strTplFile . '.tpl.php';
+        if(file_exists($strFileLoc)){
+            $this->pnlThanks->Template = $strFileLoc;
+        }else{
+            $this->pnlThanks->Template = __MLC_SOCIAL_CORE_VIEW__ . '/panels/' . $strTplFile . '.tpl.php';
+        }
+
+
         $this->lnkSave = new MJaxLinkButton($this);
         $this->lnkSave->Text = 'Save';
         $this->lnkSave->AddCssClass('btn');
@@ -40,7 +51,7 @@ class MLCSocialSignupForm extends MLCForm{
         foreach ( $this->arrEditProfileField as $strNamespace => $pnlEditProfileField) {
             $arrProfileFieldData[$strNamespace] = $pnlEditProfileField->Save($intHackUser);
         }
-        $this->Alert('Thanks for signing up!');
+        $this->Alert($this->pnlThanks);
         return $arrProfileFieldData;
     }
 }

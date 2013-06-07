@@ -1,6 +1,6 @@
 <?php
 
-class MLCSocialCheckListBox extends MJaxPanel{
+class MLCSocialRadioListBox extends MJaxPanel{
     public $arrData = array();
     public $arrCheckBoxs = array();
     public function __construct($objParentControl, $mixData)
@@ -9,7 +9,7 @@ class MLCSocialCheckListBox extends MJaxPanel{
         $this->arrData = $mixData;
         if(array_key_exists('options', $this->arrData)){
             foreach($this->arrData['options'] as $strKey => $strShortDesc){
-                $this->arrCheckBoxs[$strKey] = new MJaxCheckBox($this);
+                $this->arrCheckBoxs[$strKey] = new MJaxRadioBox($this);
                 $this->arrCheckBoxs[$strKey]->ActionParameter = $strKey;
                 $this->arrCheckBoxs[$strKey]->Attr('title', $strShortDesc);
                 $this->arrCheckBoxs[$strKey]->Name = $this->strControlId;
@@ -25,12 +25,11 @@ class MLCSocialCheckListBox extends MJaxPanel{
 
     }
     public function GetValue() {
-        $arrReturn = array();
         foreach($this->arrCheckBoxs as $strKey => $chkBox){
             if($chkBox->Checked){
-                $arrReturn[] = $strKey;
+                return $chkBox->ActionParameter;
             }
         }
-        return implode('|', $arrReturn);
+        return null;
     }
 }
