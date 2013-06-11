@@ -33,4 +33,5 @@ class MLCSocialCheckListBox extends MJaxPanel{
         }
         return implode('|', $arrReturn);
     }
+
 }

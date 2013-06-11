@@ -37,6 +37,7 @@ MLCApplicationBase::$arrClassFiles['MLCSocialRadioListBox'] = __MLC_SOCIAL_CORE_
 //ADMIN PANELS
 MLCApplicationBase::$arrClassFiles['MLCSocialAdminProfileFieldDataEditPanel'] = __MLC_SOCIAL_CORE_CTL__ . '/admin/panels/MLCSocialAdminProfileFieldDataEditPanel.class.php';
 MLCApplicationBase::$arrClassFiles['MLCSocialAdminProfileFieldTypeEditPanel'] = __MLC_SOCIAL_CORE_CTL__ . '/admin/panels/MLCSocialAdminProfileFieldTypeEditPanel.class.php';
+MLCApplicationBase::$arrClassFiles['MLCSocialListBoxEditPanel'] = __MLC_SOCIAL_CORE_CTL__ . '/admin/panels/profile_filed_type_opts/MLCSocialListBoxEditPanel.class.php';
 
 
 

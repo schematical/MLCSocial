@@ -89,7 +89,11 @@ if ($_CONTROL->IsNew()) { ?>
     </div>
 
 
-
+<div>
+    <?php if(!is_null($_CONTROL->pnlData)){
+        $_CONTROL->pnlData->Render();
+    } ?>
+</div>
 
 
     <div class="control-group">
