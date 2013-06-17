@@ -94,7 +94,10 @@ if ($_CONTROL->IsNew()) { ?>
         $_CONTROL->pnlData->Render();
     } ?>
 </div>
-
+<div style='margin:10Px; padding:10Px; background: gray;'>
+    <h3>Preview</h3>
+    <?php $_CONTROL->pnlPreview->Render(); ?>
+</div>
 
     <div class="control-group">
 		<label class="control-label" class="control-label" for="<?php echo $_CONTROL->txtOptData->ControlId; ?>">optData</label>

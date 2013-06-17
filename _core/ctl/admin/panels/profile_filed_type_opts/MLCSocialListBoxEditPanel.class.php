@@ -23,7 +23,7 @@ class MLCSocialListBoxEditPanel extends MJaxPanel{
             $this->arrData['options'] = array();
         }
         $this->arrData['options'][$this->txtValue->Text] = $this->txtName->Text;
-        //_dv($this->arrData);
+
         $this->objParentControl->btnSave_click();
     }
     public function GetData(){

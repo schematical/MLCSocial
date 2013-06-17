@@ -9,6 +9,7 @@ require_once (__MODEL_APP_CONTROL__ . "/base_classes/MLCSocialProfileFieldTypeEd
 class MLCSocialAdminProfileFieldTypeEditPanel extends MLCSocialProfileFieldTypeEditPanelBase {
     public $lnkEdit = null;
     public $pnlData = null;
+    public $pnlPreview = null;
     public function __construct($objParentControl, $objMLCSocialProfileFieldType = null) {
         parent::__construct($objParentControl, $objMLCSocialProfileFieldType);
         $this->SetEditMode(false);
@@ -17,23 +18,38 @@ class MLCSocialAdminProfileFieldTypeEditPanel extends MLCSocialProfileFieldTypeE
             $this->txtRank->AddItem($i, $i, ($i == 1));
         }
         $strType = null;
+
         if(!is_null($this->objMLCSocialProfileFieldType)){
             $this->txtShortDesc->Text = htmlentities($this->objMLCSocialProfileFieldType->ShortDesc, ENT_QUOTES);;
             $strType = $this->objMLCSocialProfileFieldType->CtlType;
+            if(strlen($strType) == 0){
+                $strType = null;
+            }
         }
+
         $this->txtCtlType = new MJaxListBox($this);
-        $this->txtCtlType->AddItem('text', 'MLCSocialTextBox', ($strType == 'MLCSocialTextBox'));
+        $this->txtCtlType->AddItem('text', 'MLCSocialTextBox', ((is_null($strType)) || ($strType == 'MLCSocialTextBox')));
         $this->txtCtlType->AddItem('upload', 'MLCSocialUploadBox', ($strType == 'MLCSocialUploadBox'));
         $this->txtCtlType->AddItem('check', 'MLCSocialCheckListBox', ($strType == 'MLCSocialCheckListBox'));
         $this->txtCtlType->AddItem('radio', 'MLCSocialRadioListBox', ($strType == 'MLCSocialRadioListBox'));
         $this->txtCtlType->AddItem('list', 'MLCSocialListBox', ($strType == 'MLCSocialListBox'));
 
-        $this->txtCtlType->AddAction(new MJaxChangeEvent(), new MJaxServerControlAction($this, 'txtCtlType_change'));
+        $this->txtCtlType->AddAction(
+            new MJaxChangeEvent(),
+            new MJaxServerControlAction(
+                $this,
+                'txtCtlType_change'
+            )
+        );
+        $this->UpdateEditDataPanel();
+
         $this->lnkEdit = new MJaxLinkButton($this);
         $this->lnkEdit->Text = 'Edit';
         $this->lnkEdit->AddAction($this, 'lnkEdit_click');
+        $this->txtOptData->TextMode = MJaxTextMode::MultiLine;
     }
     public function UpdateEditDataPanel(){
+
         switch($this->txtCtlType->SelectedValue){
             case('MLCSocialTextBox'):
             case('MLCSocialUploadBox'):
@@ -51,6 +67,10 @@ class MLCSocialAdminProfileFieldTypeEditPanel extends MLCSocialProfileFieldTypeE
                 );
             break;
         }
+        if(!is_null($this->objMLCSocialProfileFieldType)){
+            $this->objMLCSocialProfileFieldType->ctlType = $this->txtCtlType->SelectedValue;
+            $this->pnlPreview = new MLCSocialProfileFieldDataEditPanel($this, $this->objMLCSocialProfileFieldType);
+        }
     }
     public function txtCtlType_change(){
         $this->UpdateEditDataPanel();
@@ -66,10 +86,22 @@ class MLCSocialAdminProfileFieldTypeEditPanel extends MLCSocialProfileFieldTypeE
             $this->txtOptData->Text = json_encode($arrData, JSON_PRETTY_PRINT);
 
         }
-        parent::btnSave_click();
+        if (is_null($this->objMLCSocialProfileFieldType)) {
+            //Create a new one
+            $this->objMLCSocialProfileFieldType = new MLCSocialProfileFieldType();
+        }
+        $this->objMLCSocialProfileFieldType->ctlType = $this->txtCtlType->SelectedValue;
+        $this->objMLCSocialProfileFieldType->IdParentProfileField = null;
+        $this->objMLCSocialProfileFieldType->namespace = $this->txtNamespace->Text;
+        $this->objMLCSocialProfileFieldType->shortDesc = $this->txtShortDesc->Text;
+        $this->objMLCSocialProfileFieldType->longDesc = $this->txtLongDesc->Text;
+        $this->objMLCSocialProfileFieldType->creDate = $this->txtCreDate->Text;
+        $this->objMLCSocialProfileFieldType->rank = $this->txtRank->Text;
+        $this->objMLCSocialProfileFieldType->optData = $this->txtOptData->Text;
+        $this->objMLCSocialProfileFieldType->section = $this->txtSection->Text;
+        $this->objMLCSocialProfileFieldType->Save();
+
         if($blnNew){
-            $this->objMLCSocialProfileFieldType->IdParentProfileField = null;
-            $this->objMLCSocialProfileFieldType->Save();
             $this->SetEditMode(false);
         }
     }
